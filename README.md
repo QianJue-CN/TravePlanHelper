@@ -1,5 +1,7 @@
 # TravelPlanHelper
 
+文档[README_ZH.md](README_ZH.md)
+
 ## 📖 Introduction
 **TravelPlanHelper** is a professional intelligent travel planning system built on the **MCP (Model Context Protocol)** architecture. It is more than just a simple chatbot; it is an intelligent agent integrating powerful tools such as real-time traffic, map navigation, weather forecasting, community guides (Xiaohongshu/RED), search engines, and data visualization.
 
