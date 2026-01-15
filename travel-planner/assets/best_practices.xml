@@ -1,0 +1,67 @@
+<TravelPlannerBestPractices version="1.0">
+    <!-- 
+        此文件定义了 Travel Planner Skill 的核心执行协议和最佳实践。
+        AI Agent 在执行任务时应始终遵循这些规则。
+    -->
+
+    <ExecutionProtocols>
+        <!-- 协议1: 资产管理与持久化 (最高优先级) -->
+        <Protocol id="asset_management" priority="CRITICAL">
+            <Objective>确保所有生成的图表和可视化内容都被正确保存并可在Markdown中引用。</Objective>
+            <Rules>
+                <Rule id="chart_generation">
+                    <Trigger>调用 `mcp_server_chart` 生成任何图表后。</Trigger>
+                    <Action>必须立即调用 `mcp-file-downloader` 下载生成的图片 URL。</Action>
+                </Rule>
+                <Rule id="directory_structure">
+                    <Constraint>所有图片必须保存到 `images/{GuideName}/` 目录下。</Constraint>
+                    <Example>攻略名为 `Tokyo-Trip.md`，图片应保存在 `images/Tokyo-Trip/budget-pie.png`。</Example>
+                </Rule>
+                <Rule id="markdown_reference">
+                    <Constraint>Markdown 中的图片引用必须使用相对路径。</Constraint>
+                    <Format>`![Description](images/{GuideName}/{ImageName}.png)`</Format>
+                </Rule>
+            </Rules>
+        </Protocol>
+
+        <!-- 协议2: 工具调用链与依赖 -->
+        <Protocol id="tool_chaining" priority="HIGH">
+            <Rules>
+                <Rule id="time_first">
+                    <Constraint>在进行任何票务查询 (12306, variflight) 或行程规划前，必须先调用 `time` 工具获取准确的当前时间。</Constraint>
+                </Rule>
+                <Rule id="search_fallback">
+                    <Logic>
+                        IF `tavily-mcp` fails OR returns insufficient results:
+                        THEN fallback to `searxng` with expanded keywords.
+                    </Logic>
+                </Rule>
+                <Rule id="thinking_process">
+                    <Constraint>在处理复杂需求（如多城市路线、预算紧张）时，必须先调用 `sequential-thinking` 进行步骤拆解。</Constraint>
+                </Rule>
+            </Rules>
+        </Protocol>
+
+        <!-- 协议3: 内容质量控制 -->
+        <Protocol id="quality_control" priority="MEDIUM">
+            <Rules>
+                <Rule id="verification">
+                    <Constraint>关键信息（价格、开放时间）必须经过多源验证（官方渠道 + 用户分享）。</Constraint>
+                </Rule>
+                <Rule id="transparency">
+                    <Constraint>对于估算数据或未经验证的信息，必须在输出中明确标注警告符号 (⚠️)。</Constraint>
+                </Rule>
+            </Rules>
+        </Protocol>
+    </ExecutionProtocols>
+
+    <OutputStandards>
+        <Standard id="structure">
+            <Requirement>输出必须严格遵循 `templates.md` 中定义的 Markdown 结构。</Requirement>
+        </Standard>
+        <Standard id="visuals">
+            <Requirement>完整的攻略至少包含 3 个图表：预算分布图、行程甘特图、路线图。</Requirement>
+        </Standard>
+    </OutputStandards>
+
+</TravelPlannerBestPractices>
