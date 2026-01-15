@@ -6,13 +6,13 @@ System currently has the following MCP servers and tools configured:
 
 | Server | Tools / Capabilities |
 | :--- | :--- |
-| **sequential-thinking** | `sequential-thinking` (深度思考分析) |
+| **sequential-thinking** | `sequentialthinking` (深度思考分析) |
 | **OpenWeatherMCP** | `get_weather_forecast` (天气预报) |
 | **time** | `get_current_time` (当前时间) |
-| **variflight-mcp** | 航班信息查询 |
-| **12306-mcp** | `get-tickets`, `get-station-code-by-names`, `get-stations-code-in-city`, `query_tickets` |
-| **amap** | `maps_direction_transit_integrated` (公交), `maps_geo` (地理编码), `maps_text_search` (地点搜索), `maps_direction_driving` (驾车) |
-| **fetch** | 网页内容获取 |
+| **variflight-mcp** | `search_flights_by_location` (按出发/到达地搜索航班), `search_flights_by_number` (按航班号搜索航班), `get_flight_transfer_info` (获取航班中转信息), `get_today_date` (获取当前日期), `get_airport_weather` (按机场代码获取未来三天天气), `search_flight_prices` (搜索航班行程与最低票价) |
+| **12306-mcp** | `get-tickets`(查询12306余票信息), `get-interline-tickets`(查询12306中转余票信息), `get-stations-code-in-city`(通过中文城市名查询该城市 **所有** 火车站的名称及其对应的 `station_code`，结果是一个包含多个车站信息的列表), `12306-mcp-get-station-code-of-citys`(通过中文城市名查询代表该城市的 `station_code`。此接口主要用于在用户提供**城市名**作为出发地或到达地时，为接口准备 `station_code` 参数), `get-station-code-by-names`(通过中文城市名查询代表该城市的 `station_code`。此接口主要用于在用户提供**城市名**作为出发地或到达地时，为接口准备 `station_code` 参数) |
+| **amap** | `maps_direction_transit_integrated` (公共交通), `maps_geo` (地理编码), `maps_text_search` (地点搜索), `maps_direction_driving` (驾车), `maps_direction_walking` (步行), `maps_bicycling` (骑行)|
+| **fetch** | `fetch` |
 | **tavily-mcp** | `tavily-search` (AI搜索引擎) |
 | **searxng** | `search` (聚合搜索) |
 | **mcp-server-chart** | `generate_pie_chart`, `generate_flow_diagram`, `generate_column_chart`, `generate_bar_chart`, `generate_radar_chart`, `generate_path_map`, `generate_dual_axes_chart` |
